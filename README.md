@@ -1,9 +1,6 @@
 # ML biscuit
 
-A logical, reasonably standardized, but flexible project structure for doing and sharing data science work._
-
-
-#### [Project homepage](http://drivendata.github.io/cookiecutter-data-science/)
+A standardized ML project template compliant with my OCDs - adapted from the datadriven [Data Science template](https://github.com/drivendata/cookiecutter-data-science)
 
 
 ### Requirements to use the cookiecutter template:
