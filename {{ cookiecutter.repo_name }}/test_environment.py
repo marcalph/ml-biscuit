@@ -2,7 +2,6 @@ import sys
 
 REQUIRED_PYTHON = "{{ cookiecutter.python_interpreter }}"
 
-
 def main():
     system_major = sys.version_info.major
     required_major = 3
@@ -17,3 +16,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
