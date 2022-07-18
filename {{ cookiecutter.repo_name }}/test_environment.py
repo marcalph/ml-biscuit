@@ -1,6 +1,6 @@
 import sys
 
-REQUIRED_PYTHON = "{{ cookiecutter.python_interpreter }}"
+REQUIRED_PYTHON = "{{ cookiecutter.python_version }}"
 
 def main():
     system_major = sys.version_info.major
