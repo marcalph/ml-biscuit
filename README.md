@@ -1,6 +1,6 @@
 # ML biscuit
 
-A standardized ML project template with boilerplate code compliant with my OCDs - currently WIP, should be moved to a templating tool (e.g. cookiecutter) instead of the current copy/paste logic.
+A standardized (python only) ML project template with boilerplate code compliant with my OCDs - currently WIP, should be moved to a templating tool (e.g. cookiecutter) instead of the current copy/paste logic.
 
 
 ### directory structure
