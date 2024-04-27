@@ -8,6 +8,11 @@
 """
 
 
+def test_input_shape() -> None:
+    """test model outputs"""
+    assert True
+
+
 def test_output_shape() -> None:
     """test model outputs"""
     assert True
