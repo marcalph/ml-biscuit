@@ -1,11 +1,9 @@
 # ML biscuit
 
-A standardized ML project template compliant with my OCDs - currently WIP, should be moved to a templating tool (e.g. cookiecutter) instead of the current 
+A standardized ML project template with boilerplate code compliant with my OCDs - currently WIP, should be moved to a templating tool (e.g. cookiecutter) instead of the current copy/paste logic.
 
 
-
-
-### The resulting directory structure
+### directory structure
 ------------
 
 The directory structure of your new project looks like this: 
