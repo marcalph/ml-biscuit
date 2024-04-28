@@ -7,6 +7,11 @@ repos:
       entry: poetry run black .
       language: system
       types: [file, python]
+    - id: isort
+      name: isort
+      entry: poetry run isort
+      language: system
+      types: [file, python]    
     - id: flake8
       name: flake8
       entry: poetry run flake8

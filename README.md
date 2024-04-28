@@ -8,15 +8,10 @@ My opinionated hot take on what a python project should leverage as tooling enco
 - a packaging tool, here `poetry` 
 - a minimal local ci-suite, here inmplemented using `pre-commit`
 
-### directory structure
-------------
+### todos
 
-The directory structure of your new project looks like this: 
-
-```
-├── LICENSE
-├── README.md           <- The top-level README
-├── src                 <- Source code for use in this project.
-│   └── utils           <- Generated graphics and figures to be used in reporting
-└── tests               <- Source code for use in this project.
-```
+- [ ] better docker
+- [ ] more plotting
+- [ ] more eda
+- [ ] more eval
+- [ ] add cli support

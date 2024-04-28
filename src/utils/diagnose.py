@@ -12,13 +12,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import numpy.typing as npt
 import pandas as pd
-import seaborn as sns
-import sklearn
+import seaborn as sns  # type: ignore[import-untyped]
 from matplotlib.axes import Axes
-from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import BaseCrossValidator, learning_curve
+from sklearn.metrics import confusion_matrix  # type: ignore[import-untyped]
+from sklearn.model_selection import (  # type: ignore[import-untyped]
+    BaseCrossValidator,
+    learning_curve,
+)
 
 from src.utils.log import logger, logthis
+from src.utils.predictor import BasePredictor
 
 extra_args = {"funcname_override": "print"}
 
@@ -27,7 +30,7 @@ default_train_sizes = np.linspace(0.1, 1.0, 5)
 
 @logthis
 def plot_learning_curves(
-    clf: sklearn.base.BaseEstimator,
+    clf: BasePredictor,
     scoring: Callable[..., float],
     X: npt.NDArray[Any],
     y: npt.NDArray[Any],
@@ -37,7 +40,7 @@ def plot_learning_curves(
     n_jobs: Union[int, None] = None,
     train_sizes: npt.NDArray[Any] = default_train_sizes,
 ) -> None:
-    """generate learning curves and scalability for a sklearn model"""
+    """generate learning curves and scalability for bin model"""
     if axes is None:
         _, axes = plt.subplots(1, 2, figsize=(10, 5))
 
@@ -96,7 +99,7 @@ def plot_learning_curves(
 
 @logthis
 def cv_confusion_matrix(
-    clf: sklearn.base.BaseEstimator,
+    clf: BasePredictor,
     X: npt.NDArray[Any],
     y: npt.NDArray[Any],
     shuffle_split_strategy: BaseCrossValidator,

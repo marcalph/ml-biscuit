@@ -7,13 +7,16 @@
 """ plotting utils
 """
 
-from typing import Sequence
-
-from matplotlib.offsetbox import AnchoredText
-import matplotlib.pyplot as plt
 import math
+from typing import Any, Sequence
+
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns  # type: ignore
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+from matplotlib.offsetbox import AnchoredText
+from scipy.signal import periodogram  # type: ignore
 
 sns.set_theme()
 
@@ -25,10 +28,9 @@ plot_params = dict(
 
 
 def periodogram_plot(
-    ts: Sequence, detrend: str = "linear", ax: plt.Axes = None  # type: ignore
-) -> plt.Axes:  # type: ignore
-    from scipy.signal import periodogram  # type: ignore
-
+    ts: Sequence[float], detrend: str = "linear", ax: Axes = None  # type: ignore
+) -> Axes:
+    """display periodogram of a time series"""
     fs = pd.Timedelta("365D") / pd.Timedelta("1D")
     freqencies, spectrum = periodogram(
         ts,
@@ -62,8 +64,9 @@ def periodogram_plot(
 
 
 def seasonal_plot(
-    X: pd.DataFrame, target: str, period: str, freq: str, ax: plt.Axes = None  # type: ignore
-) -> plt.Axes:  # type: ignore
+    X: pd.DataFrame, target: str, period: str, freq: str, ax: Axes = None  # type: ignore
+) -> Axes:
+    """display seasonal plot"""
     if ax is None:
         _, ax = plt.subplots()
     palette = sns.color_palette(
@@ -82,7 +85,7 @@ def seasonal_plot(
     )
     ax.set_title(f"Seasonal Plot ({period}/{freq})")
     for line, name in zip(ax.lines, X[period].unique()):
-        y_ = line.get_ydata()[-1]
+        y_ = float(line.get_ydata()[-1])  # type: ignore
         ax.annotate(
             name,
             xy=(1, y_),
@@ -96,8 +99,15 @@ def seasonal_plot(
     return ax
 
 
-def lagplot(x, y=None, lag=1, standardize=False, ax=None, **kwargs):
-
+def lagplot(
+    x: pd.Series[float],
+    y: pd.Series[float],
+    ax: Axes,
+    lag: int = 1,
+    standardize: bool = False,
+    **kwargs: dict[str, Any],
+) -> Axes:
+    """display single lag plot"""
     x_ = x.shift(lag)
     if standardize:
         x_ = (x_ - x_.mean()) / x_.std()
@@ -136,13 +146,21 @@ def lagplot(x, y=None, lag=1, standardize=False, ax=None, **kwargs):
     return ax
 
 
-def lags_plot(x, y=None, lags=6, nrows=1, lagplot_kwargs={}, **kwargs):
+def lags_plot(
+    x: pd.Series[float],
+    y: pd.Series[float],
+    n: int = 6,
+    nrows: int = 1,
+    lagplot_kwargs: dict[str, Any] = {},
+    **kwargs: Any,
+) -> Figure:
+    """display lag plots up to `n`"""
     kwargs.setdefault("nrows", nrows)
-    kwargs.setdefault("ncols", math.ceil(lags / nrows))
+    kwargs.setdefault("ncols", math.ceil(n / nrows))
     kwargs.setdefault("figsize", (kwargs["ncols"] * 2, nrows * 2 + 0.5))
     fig, axs = plt.subplots(sharex=True, sharey=True, squeeze=False, **kwargs)
     for ax, k in zip(fig.get_axes(), range(kwargs["nrows"] * kwargs["ncols"])):
-        if k + 1 <= lags:
+        if k + 1 <= n:
             ax = lagplot(x, y, lag=k + 1, ax=ax, **lagplot_kwargs)
             ax.set_title(f"Lag {k + 1}", fontdict=dict(fontsize=14))
             ax.set(xlabel="", ylabel="")

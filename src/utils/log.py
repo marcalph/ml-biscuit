@@ -46,7 +46,7 @@ class CustomFormatter(logging.Formatter):
             record.funcName = record.name_override
         if hasattr(record, "file_override"):
             record.filename = record.file_override
-
+        # keep indent consistent for multiline logs
         indent = " " * self.get_header_length(record)
         head, *trailing = super().format(record).splitlines(True)
         return head + "".join(indent + line for line in trailing)

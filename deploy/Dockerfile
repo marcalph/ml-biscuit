@@ -1,4 +1,5 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
+# TODO(marcalph): switch to alpine based multibuild
+# TODO(marcalph): remove poetry export coupling
 FROM python:3.11
 RUN apt-get update &&\
     apt-get install -y gcc
